@@ -1,30 +1,32 @@
-const products = [
-  { id: 1, name: "Ceramic Bowl", price: 120, image: "/images/bowl1.jpg" },
-  { id: 2, name: "Clay Plate", price: 80, image: "/images/plate1.jpg" },
-  { id: 3, name: "Handmade Mug", price: 60, image: "/images/mug1.jpg" },
-  { id: 4, name: "Decorative Vase", price: 200, image: "/images/vase1.jpg" },
-];
+import { getProducts } from "@/app/lib/products";
+import Link from "next/link";
 
-export default function Popular() {
+export default async function Popular() {
+  const products = await getProducts();
+
   return (
     <section className="px-6 py-10">
       <h2 className="text-2xl font-semibold mb-6">Most Popular</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {products.slice(0, 4).map((product) => (
           <div
             key={product.id}
             className="border p-4 rounded-lg shadow-sm hover:shadow-md transition"
           >
             <img
-              src={product.image}
+              src={product.image_url}
               alt={product.name}
               className="w-full h-40 object-cover mb-4 rounded"
             />
             <h3 className="text-lg font-medium">{product.name}</h3>
-            <p className="text-text mb-2">${product.price.toFixed(2)}</p>
-            <button className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
+            <p className="text-text mb-2">${product.price}</p>
+            <Link
+              href={`/products/${product.id}`}
+              className="inline-block cursor-pointer transition-all duration-200
+              hover:[color:var(--interactive-color)] hover:scale-105"
+            >
               BUY NOW!
-            </button>
+            </Link>
           </div>
         ))}
       </div>
