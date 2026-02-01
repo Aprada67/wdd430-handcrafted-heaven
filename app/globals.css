@@ -19,3 +19,87 @@ nav {
   background-color: var(--primary-elements-background-color);
 }
 
+
+
+/* ---------- SHOP PAGE ---------- */
+
+.shop {
+  padding: 24px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.filterBar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.filterBar button {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #e0cfc2;
+  background: #fff6ef;
+  color: #8b5a3c;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.filterBar button.active {
+  background: #b87333;
+  color: white;
+  border-color: #b87333;
+}
+
+/* title*/
+
+.categoryTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 20px 0 12px;
+  color: #8b5a3c;
+}
+
+/* products grid */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+
+/* card */
+
+.card {
+  background: #b87333;
+  border-radius: 14px;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card img {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card h3 {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.card span {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
