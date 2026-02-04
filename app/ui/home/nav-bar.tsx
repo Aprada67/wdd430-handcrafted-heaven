@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const categories = [
   { name: 'Home', href: '/' },
-  { name: 'Shop', href: '/test' }, //change it to /shop, for now it is on /test so we can confirm it works
+  { name: 'Shop', href: '/products' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ];
