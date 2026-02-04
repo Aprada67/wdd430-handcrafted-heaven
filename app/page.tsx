@@ -1,12 +1,9 @@
-import Header from "./ui/home/header";
-import NavBar from "./ui/home/nav-bar";
 import Hero from "./ui/home/hero";
 import Popular from "./ui/home/popular";
 
 export default function HomePage() {
   return (
     <>
-
       { /* Hero Image */}
       <Hero />
 
