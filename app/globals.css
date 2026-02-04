@@ -27,7 +27,6 @@ nav {
   background-color: var(--primary-elements-background-color);
 }
 
-<<<<<<< HEAD
 /* =====================
   BUTTONS
 ===================== */
@@ -56,8 +55,6 @@ nav {
 .btn-primary:hover {
   background-color: var(--interactive-color);
 }
-=======
-
 
 /* ---------- SHOP PAGE ---------- */
 
@@ -141,4 +138,3 @@ nav {
   font-size: 0.8rem;
   opacity: 0.9;
 }
->>>>>>> Create-a-shop-page-with-filter
