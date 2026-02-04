@@ -5,11 +5,6 @@ import NavBar from "../ui/home/nav-bar";
 export default function Page() {
   return (
     <>
-      {/* Header */}
-      <Header />
-
-      {/* NavBar */}
-      <NavBar />
 
       <main className="mx-auto max-w-2xl p-4 mt-4 md:mt-12">
         {/* Title */}
