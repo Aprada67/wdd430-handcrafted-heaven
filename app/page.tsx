@@ -6,11 +6,6 @@ import Popular from "./ui/home/popular";
 export default function HomePage() {
   return (
     <>
-      { /* Header */}
-      <Header />
-
-      { /* NavBar */}
-      <NavBar />
 
       { /* Hero Image */}
       <Hero />
