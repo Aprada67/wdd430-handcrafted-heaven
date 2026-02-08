@@ -4,14 +4,15 @@ import { Inter } from "next/font/google";
 import Footer from "./ui/shared/footer";
 import Header from "./ui/home/header";
 import NavBar from "./ui/home/nav-bar";
- 
+import Providers from "./ui/providers";
+
 const inter = Inter({ subsets: ["latin"] });
- 
+
 export const metadata: Metadata = {
   title: "Handcrafted Heaven",
   description: "E-commerce site for handmade products",
 };
- 
+
 export default function RootLayout({
   children,
 }: {
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en-US" className={inter.className}>
       <body className="bg-background text-text flex flex-col min-h-screen">
-        <Header />
-        <NavBar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Providers>
+          <Header />
+          <NavBar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

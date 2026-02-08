@@ -7,11 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#8c3f23',      // Navbar and buttons
-        secondary: '#d9b391',    // Cards Background and buttons
-        interactive: '#a6592d',  // Hover
-        text: '#2a2a2a',         // Font color
-        background: '#ffffff',   // General background
+        primary: '#8c3f23',
+        secondary: '#d9b391',
+        interactive: '#a6592d',
+        text: '#2a2a2a',
+        background: '#ffffff',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
