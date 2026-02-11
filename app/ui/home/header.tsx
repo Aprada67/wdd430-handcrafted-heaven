@@ -1,9 +1,10 @@
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import UserButton from "../user-button";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="flex flex-col gap-3 px-4 py-3 bg-background md:flex-row md:items-center md:gap-4">
+    <header className="flex gap-3 px-4 py-3 bg-background md:flex-row md:items-center md:gap-4">
 
       <div className="flex items-center w-full mx-4 gap-6">
 
@@ -23,7 +24,9 @@ export default function Header() {
 
         {/* Icons */}
         <div className="flex gap-4 whitespace-nowrap">
+          <Link href="/cart">
           <ShoppingCartIcon className="h-6 w-6 cursor-pointer text-text" />
+          </Link>
           <UserButton />
         </div>
 
