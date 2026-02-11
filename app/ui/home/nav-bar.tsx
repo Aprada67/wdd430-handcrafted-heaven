@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const categories = [
   { name: 'Home', href: '/' },
-  { name: 'Shop', href: '/products' },
+  { name: 'Products', href: '/products' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ];
