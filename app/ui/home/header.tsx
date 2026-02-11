@@ -1,4 +1,5 @@
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -22,7 +23,9 @@ export default function Header() {
 
         {/* Icons */}
         <div className="flex gap-4 whitespace-nowrap">
+          <Link href="/cart">
           <ShoppingCartIcon className="h-6 w-6 cursor-pointer text-text" />
+          </Link>
           <UserIcon className="h-6 w-6 cursor-pointer text-text" />
         </div>
 
