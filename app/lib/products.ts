@@ -10,7 +10,7 @@ export type Product = {
 };
 
 export async function getProducts(): Promise<Product[]> {
-  const products = await sql<Product[]>`
+  const products = await sql`
     SELECT
       products.id,
       products.name,
@@ -24,18 +24,14 @@ export async function getProducts(): Promise<Product[]> {
     ORDER BY products.id
   `;
 
-  return products;
+  return products as Product[];
 }
 
 export async function getProductById(id: number): Promise<Product | null> {
   const productId = Number(id);
+  if (Number.isNaN(productId)) return null;
 
-  // Protection against SQL injection and invalid IDs
-  if (Number.isNaN(productId)) {
-    return null;
-  }
-
-  const result = await sql<Product[]>`
+  const result = await sql`
     SELECT
       products.id,
       products.name,
@@ -50,5 +46,5 @@ export async function getProductById(id: number): Promise<Product | null> {
     LIMIT 1
   `;
 
-  return result[0] ?? null;
+  return (result as Product[])[0] ?? null;
 }
