@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 type Product = {
   id: number;
@@ -13,13 +14,31 @@ type Product = {
 };
 
 type Props = {
-  products: Product[];
+  products?: Product[];
 };
 
-export default function ProductsClient({ products }: Props) {
+export default function ProductsClient({ products = [] }: Props) {
   const [filter, setFilter] = useState("all");
 
-  const categories = Array.from(new Set(products.map((p) => p.category)));
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search") ?? "";
+
+  const filteredProducts = useMemo(() => {
+    if (!search) return products;
+
+    const text = search.toLowerCase();
+
+    return products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(text) ||
+        p.category.toLowerCase().includes(text) ||
+        p.description.toLowerCase().includes(text)
+    );
+  }, [products, search]);
+
+  const categories = useMemo(() => {
+    return Array.from(new Set(filteredProducts.map((p) => p.category)));
+  }, [filteredProducts]);
 
   function handleAddToCart(product: Product) {
     alert(`Added ${product.name} to cart`);
@@ -31,12 +50,11 @@ export default function ProductsClient({ products }: Props) {
       <div className="flex flex-wrap gap-3 mb-10">
         <button
           onClick={() => setFilter("all")}
-          className={`px-4 py-2 rounded-full border text-sm transition
-            ${
-              filter === "all"
-                ? "bg-[#7a3e1d] text-white border-[#7a3e1d]"
-                : "border-gray-300 text-gray-700 hover:bg-gray-100"
-            }`}
+          className={`px-4 py-2 rounded-full border text-sm transition ${
+            filter === "all"
+              ? "bg-[#7a3e1d] text-white border-[#7a3e1d]"
+              : "border-gray-300 text-gray-700 hover:bg-gray-100"
+          }`}
         >
           All
         </button>
@@ -45,12 +63,11 @@ export default function ProductsClient({ products }: Props) {
           <button
             key={cat}
             onClick={() => setFilter(cat)}
-            className={`px-4 py-2 rounded-full border text-sm transition
-              ${
-                filter === cat
-                  ? "bg-[#7a3e1d] text-white border-[#7a3e1d]"
-                  : "border-gray-300 text-gray-700 hover:bg-gray-100"
-              }`}
+            className={`px-4 py-2 rounded-full border text-sm transition ${
+              filter === cat
+                ? "bg-[#7a3e1d] text-white border-[#7a3e1d]"
+                : "border-gray-300 text-gray-700 hover:bg-gray-100"
+            }`}
           >
             {cat}
           </button>
@@ -60,9 +77,9 @@ export default function ProductsClient({ products }: Props) {
       {categories.map((cat) => {
         const items =
           filter === "all"
-            ? products.filter((p) => p.category === cat)
+            ? filteredProducts.filter((p) => p.category === cat)
             : filter === cat
-            ? products.filter((p) => p.category === cat)
+            ? filteredProducts.filter((p) => p.category === cat)
             : [];
 
         if (items.length === 0) return null;
@@ -100,17 +117,14 @@ export default function ProductsClient({ products }: Props) {
                   <div className="mt-auto pt-3 flex flex-col gap-2">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="text-xs px-4 py-2 rounded-full border border-[#7a3e1d]
-                                 text-[#7a3e1d] hover:bg-[#7a3e1d]
-                                 hover:text-white transition"
+                      className="text-xs px-4 py-2 rounded-full border border-[#7a3e1d] text-[#7a3e1d] hover:bg-[#7a3e1d] hover:text-white transition"
                     >
                       Add to cart
                     </button>
 
                     <Link
                       href={`/products/${product.id}`}
-                      className="text-center text-xs px-4 py-2 rounded-full
-                                 bg-[#7a3e1d] text-white hover:opacity-90 transition"
+                      className="text-center text-xs px-4 py-2 rounded-full bg-[#7a3e1d] text-white hover:opacity-90 transition"
                     >
                       View more information
                     </Link>
@@ -121,6 +135,10 @@ export default function ProductsClient({ products }: Props) {
           </section>
         );
       })}
+
+      {filteredProducts.length === 0 && (
+        <p className="text-center text-gray-600">No products found.</p>
+      )}
     </main>
   );
 }

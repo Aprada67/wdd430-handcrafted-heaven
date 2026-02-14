@@ -4,29 +4,48 @@ import Link from "next/link";
 export default async function Popular() {
   const products = await getProducts();
 
+  const popular = products.slice(0, 4);
+
   return (
-    <section className="px-6 py-10">
-      <h2 className="text-2xl font-semibold mb-6">Most Popular</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {products.slice(0, 4).map((product) => (
+    <section className="max-w-7xl mx-auto px-6 py-10">
+      <h2 className="text-2xl font-semibold mb-8 text-[#8c3f23]">
+        Most Popular
+      </h2>
+
+      {/* SAME GRID AS PRODUCTS PAGE */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        {popular.map((product) => (
           <div
             key={product.id}
-            className="border p-4 rounded-lg shadow-sm hover:shadow-md transition"
+            className="bg-[#d9b391] rounded-2xl shadow-sm hover:shadow-md transition p-3 flex flex-col"
           >
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="w-full h-40 object-cover mb-4 rounded"
-            />
-            <h3 className="text-lg font-medium">{product.name}</h3>
-            <p className="text-text mb-2">${product.price}</p>
-            <Link
-              href={`/products/${product.id}`}
-              className="inline-block cursor-pointer transition-all duration-200
-              hover:[color:var(--interactive-color)] hover:scale-105"
-            >
-              BUY NOW!
+            <Link href={`/products/${product.id}`}>
+              <div className="overflow-hidden rounded-xl">
+                <img
+                  src={product.image_url}
+                  alt={product.name}
+                  className="w-full h-[180px] object-cover hover:scale-105 transition"
+                />
+              </div>
+
+              <h3 className="mt-3 text-sm font-medium text-gray-800">
+                {product.name}
+              </h3>
             </Link>
+
+            <span className="text-sm font-semibold mt-1">
+              ${product.price}
+            </span>
+
+            <div className="mt-auto pt-3 flex flex-col gap-2">
+              <Link
+                href={`/products/${product.id}`}
+                className="text-center text-xs px-4 py-2 rounded-full
+                           bg-[#7a3e1d] text-white hover:opacity-90 transition"
+              >
+                View more information
+              </Link>
+            </div>
           </div>
         ))}
       </div>
