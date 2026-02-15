@@ -28,7 +28,7 @@ export default function UserButton() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-44 z-50 overflow-hidden rounded-md border border-primary bg-primary/100 shadow-lg">
+        <div className="absolute right-0 mt-2 w-44 z-50 overflow-hidden rounded-md border border-primary bg-amber-900 shadow-lg">
           {!loggedIn ? (
             <button
               onClick={() => signIn("github", { callbackUrl: "/" })}
