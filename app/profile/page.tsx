@@ -11,7 +11,12 @@ export const revalidate = 0;
 
 const DB_URL = process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING;
 if (!DB_URL) throw new Error("Missing POSTGRES_URL");
+
 const sql = neon(DB_URL);
+
+type UserRow = {
+  display_name: string;
+};
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -20,13 +25,14 @@ export default async function ProfilePage() {
   const email = session.user?.email;
   if (!email) redirect("/login");
 
-  const rows = await sql<{ display_name: string }[]>`
+  const result = await sql`
     SELECT display_name
     FROM users
     WHERE email = ${email}
     LIMIT 1;
   `;
 
+  const rows = result as UserRow[];
   const displayName = rows[0]?.display_name || session.user?.name || "User";
 
   return (
@@ -62,8 +68,7 @@ export default async function ProfilePage() {
             {displayName}
           </p>
           <p>
-            <span className="font-medium text-gray-800">Email:</span>{" "}
-            {email}
+            <span className="font-medium text-gray-800">Email:</span> {email}
           </p>
         </div>
       </div>
