@@ -1,4 +1,4 @@
-import { addProduct } from "@/app/products/actions";
+import { addProductWithUpload } from "@/app/products/actions";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -8,14 +8,16 @@ export default function NewProductPage() {
     <div className="max-w-xl mx-auto p-6">
       <h1 className="text-2xl font-bold text-gray-800">Add new product</h1>
       <p className="text-gray-500 mt-1">
-        Fill the details and create your product.
+        Choose a category, upload an image, and create your product.
       </p>
 
-      <form action={addProduct} className="mt-6 space-y-4">
+      <form
+        action={addProductWithUpload}
+        encType="multipart/form-data"
+        className="mt-6 space-y-4"
+      >
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Name
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
             name="name"
             required
@@ -25,9 +27,7 @@ export default function NewProductPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Price
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Price</label>
           <input
             name="price"
             type="number"
@@ -40,14 +40,22 @@ export default function NewProductPage() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Image path
+            Category
           </label>
-          <input
-            name="image"
+          <select
+            name="category_id"
             required
+            defaultValue=""
             className="mt-1 w-full rounded-md border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-[#D98B61]/50"
-            placeholder="/products/ceramic-mug.jpg"
-          />
+          >
+            <option value="" disabled>
+              Select category
+            </option>
+            <option value="1">Ceramics</option>
+            <option value="2">Textiles</option>
+            <option value="3">Woodwork</option>
+            <option value="4">Jewelry</option>
+          </select>
         </div>
 
         <div>
@@ -60,6 +68,17 @@ export default function NewProductPage() {
             required
             className="mt-1 w-full rounded-md border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-[#D98B61]/50"
             placeholder="A handcrafted ceramic mug shaped and glazed by hand..."
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Image</label>
+          <input
+            name="imageFile"
+            type="file"
+            accept="image/*"
+            required
+            className="mt-1 w-full"
           />
         </div>
 
