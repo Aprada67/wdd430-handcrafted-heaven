@@ -27,7 +27,6 @@ export default function ProductsClient({ products = [] }: Props) {
     if (!search) return products;
 
     const text = search.toLowerCase();
-
     return products.filter(
       (p) =>
         p.name.toLowerCase().includes(text) ||
@@ -40,8 +39,31 @@ export default function ProductsClient({ products = [] }: Props) {
     return Array.from(new Set(filteredProducts.map((p) => p.category)));
   }, [filteredProducts]);
 
+  // ✅ Guest-friendly localStorage cart
   function handleAddToCart(product: Product) {
-    alert(`Added ${product.name} to cart`);
+    try {
+      // Get cart from localStorage
+      const cartJson = localStorage.getItem("cart");
+      const cart: { id: number; name: string; price: number; image_url: string; quantity: number }[] = cartJson
+        ? JSON.parse(cartJson)
+        : [];
+
+      // Check if product already exists
+      const existingItem = cart.find((item) => item.id === product.id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      // Save back to localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      alert(`Added ${product.name} to cart`);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to add to cart");
+    }
   }
 
   return (
